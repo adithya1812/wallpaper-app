@@ -1,0 +1,56 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+#man {
+  display: none;
+  position: absolute;
+  width: 200px;
+  height: 300px;
+}
+.button {
+  border: 2;
+  color: #EAE0D5;
+  padding: 5px 7px;
+  background-color: #5E503F;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.6s;
+  cursor: pointer;
+  position: absolute;
+  font-size: 20px;
+  width: auto;
+}
+
+.button:hover {
+  background-color: #000000;
+  color: #59FF6A;
+  letter-spacing: 1px;
+}
+
+#flowfieldCustom,
+#back,
+#bothChange,
+#ballNormal {
+  display: none;
+  left: 50px;
+}
+
+#flowfieldNormal,
+#flowfieldContinue,
+#ballChange,
+#bgChange,
+#ballContinue,
+#sunContinue {
+  display: none;
+  right: 50px;
+}
+
+#restart {
+  display: none;
+}

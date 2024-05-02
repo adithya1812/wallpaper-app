@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+20+Charted&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <img src="running-man.gif" id="man">
+      <button id="flowfield" class="button" onclick="changeFlowfieldMode()">Flowfield</button>
+      <button id="ball" class="button" onclick="changeBallMode()">Balls</button>
+      <button id="sun" class="button" onclick="changeSun()">Sunrise and Sunset</button>
+      <button id="flowfieldCustom" class="button" onclick="flowfieldCustom()">Custom colour range for flowfield</button>
+      <button id="flowfieldNormal" class="button" onclick="flowfieldNormal()">Normal colour range for flowfield</button>
+      <button id="flowfieldContinue" class="button" onclick="flowfieldContinue()">Continue</button>
+      <button id="back" class="button" onclick="homepage()">Go Back</button>
+      <button id="ballChange" class="button" onclick="ballChange()">Colours of balls change</button>
+      <button id="bgChange" class="button" onclick="bgChange()">Colour of background changes</button>
+      <button id="bothChange" class="button" onclick="bothChange()">Colours of both balls and background change</button>
+      <button id="ballNormal" class="button" onclick="ballNormal()">Normal</button>
+      <button id="ballContinue" class="button" onclick="ballContinue()">Continue</button>
+      <button id="sunContinue" class="button" onclick="sunContinue()">Continue</button>
+      <button id="restart" class="button" onclick="restart()">Restart</button>
+    </main>
+    <script src="sketch.js"></script>
+    <script src="sunrise-sunset.js"></script>
+    <script src="flowfield.js"></script>
+    <script src="bouncing-balls.js"></script>
+  </body>
+</html>
