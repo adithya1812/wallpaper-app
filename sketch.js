@@ -1,5 +1,5 @@
 //TO BE VIEWED IN FULLSCREEN//
-// Declaring global variables
+//Declaring global variables
 let wallpaperChosen = false; // Flag to track if a wallpaper is chosen
 let sunBtn, flowfieldModeBtn, ballBtn, backBtn, restartBtn; // Buttons for different wallpapers and actions
 
@@ -47,6 +47,7 @@ let colours = [
 ]; // Array of colors for balls
 let balls = []; // Array to hold ball objects
 let noiseScale = 0.01; // Noise scale for color variation
+let r = 0, g = 0, b = 0, chosenColour;
 
 function preload() {
   // Preload images and buttons
@@ -413,6 +414,7 @@ function draw() {
     }
   }
 }
+
 
 function changeFlowfieldMode() {
   // Change wallpaper mode to flowfield
