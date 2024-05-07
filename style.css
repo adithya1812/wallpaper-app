@@ -1,17 +1,24 @@
+/* Reset default margin and padding */
 html,
 body {
   margin: 0;
   padding: 0;
 }
+
+/* Make canvas elements block-level */
 canvas {
   display: block;
 }
+
+/* Style for the running man image */
 #man {
   display: none;
   position: absolute;
   width: 200px;
   height: 300px;
 }
+
+/* Style for buttons */
 .button {
   border: 2;
   color: #EAE0D5;
@@ -27,12 +34,14 @@ canvas {
   width: auto;
 }
 
+/* Button hover effect */
 .button:hover {
   background-color: #000000;
   color: #59FF6A;
   letter-spacing: 1px;
 }
 
+/* Additional button styles */
 #flowfieldCustom,
 #back,
 #bothChange,
@@ -51,6 +60,7 @@ canvas {
   right: 50px;
 }
 
+/* Hide restart button by default */
 #restart {
   display: none;
 }
