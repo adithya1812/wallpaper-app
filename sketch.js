@@ -390,7 +390,7 @@ function draw() {
     );
     if (ballNormalBtn.style.display == "none") {
       textAlign(CENTER);
-      if (ballModeChosen == "ballNormal") {
+      if (ballModeChosen == "normal") {
         text("You have chosen normal mode.", width / 2, height / 2);
       } else if (ballModeChosen == "ballChange") {
         text(
@@ -553,7 +553,7 @@ function bothChange() {
 
 function ballNormal() {
   // Set ball mode to normal
-  ballModeChosen = "ballNormal";
+  ballModeChosen = "normal";
   ballNormalBtn.style.display = "none";
   ballChangeBtn.style.display = "none";
   bgChangeBtn.style.display = "none";
