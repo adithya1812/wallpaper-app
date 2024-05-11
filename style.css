@@ -45,7 +45,8 @@ canvas {
 #flowfieldCustom,
 #back,
 #bothChange,
-#ballNormal {
+#ballNormal,
+#flowfieldTypeNormal {
   display: none;
   left: 50px;
 }
@@ -55,9 +56,66 @@ canvas {
 #ballChange,
 #bgChange,
 #ballContinue,
-#sunContinue {
+#sunContinue,
+#flowfieldTypeTrail {
   display: none;
   right: 50px;
+}
+
+/* Styling for trail slider */
+#trail {
+  display: none;
+  position: absolute;
+  left: 225px;
+  right: 50px;
+  background-color: #5E503F;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Styling for slider thumb in WebKit browsers */
+#trail::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 25px;
+  width: 16px;
+  border-radius: 10px;
+  background: #EAE0D5;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+/* Styling for slider thumb in Mozilla browsers */
+#trail::-moz-range-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 10px;
+  background: #EAE0D5;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+/* Hover effects for slider */
+#trail:hover {
+  background: #000000;
+  transition-duration: 1s;
+}
+
+/* Hover effect for slider thumb in WebKit browsers */
+#trail::-webkit-slider-thumb:hover {
+  background: #F9FF6A;
+  transition-duration: 1s;
+}
+
+/* Hover effect for slider thumb in Mozilla browsers */
+#trail::-moz-range-thumb:hover {
+  background: #F9FF6A;
+  transition-duration: 1s;
 }
 
 /* Hide restart button by default */
