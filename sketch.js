@@ -7,6 +7,7 @@ let sunBtn, flowfieldModeBtn, ballBtn, backBtn, restartBtn; // Buttons for diffe
 let flowfield; // Array to hold flowfield vectors
 let flowfieldCustomBtn, flowfieldNormalBtn, flowfieldContinueBtn; // Buttons for flowfield customization
 let flowfieldModeChosen = "normal"; // Flowfield mode: normal or custom
+let flowfieldTypeChosen = "normal"; // Flowfield type: normal or trail
 let resolution = 20; // Resolution for flowfield vectors
 let particles = []; // Array to hold particle objects
 let loopThreshold = 0.1; // Threshold for loop detection in particles
@@ -47,7 +48,10 @@ let colours = [
 ]; // Array of colors for balls
 let balls = []; // Array to hold ball objects
 let noiseScale = 0.01; // Noise scale for color variation
-let r = 0, g = 0, b = 0, chosenColour;
+let r = 0,
+  g = 0,
+  b = 0,
+  chosenColour;
 
 function preload() {
   // Preload images and buttons
@@ -65,6 +69,9 @@ function preload() {
   ballNormalBtn = document.getElementById("ballNormal");
   ballContinueBtn = document.getElementById("ballContinue");
   flowfieldModeBtn = document.getElementById("flowfield");
+  flowfieldTypeNormalBtn = document.getElementById("flowfieldTypeNormal");
+  flowfieldTypeTrailBtn = document.getElementById("flowfieldTypeTrail");
+  trailSlider = document.getElementById("trail");
   flowfieldCustomBtn = document.getElementById("flowfieldCustom");
   flowfieldNormalBtn = document.getElementById("flowfieldNormal");
   flowfieldContinueBtn = document.getElementById("flowfieldContinue");
@@ -131,7 +138,9 @@ function setup() {
 
     // Generate flowfield and set the background to black
     flowfield = generateFlowfield(width / resolution, height / resolution);
-    background(0);
+    if (flowfieldTypeChosen == "normal") {
+      background(0);
+    }
   } else if (wallpaperChosen == "ball") {
     // Set the color mode to RGB
     colorMode(RGB);
@@ -169,6 +178,12 @@ function draw() {
     image(ballExample, width / 2 - 150, height - 300, 300, 190);
     image(flowfieldExample, (9 * width) / 10 - 210, height - 300, 300, 190);
   } else if (wallpaperChosen == "flowfield") {
+    // Set background to simulate a trail if trail mode is chosen
+    if (flowfieldTypeChosen == "trail") {
+      colorMode(RGB);
+      background(0, 0, 0, round(15 / trailSlider.value, 2));
+      colorMode(HSB, 360, 100, 100);
+    }
     // Update and display particles for the flowfield wallpaper
     let newParticles = []; // Store new particles to be added
     for (let i = particles.length - 1; i >= 0; i--) {
@@ -197,7 +212,7 @@ function draw() {
     textSize(24);
     textWrap(WORD);
     text(
-      `The flowfield wallpaper simulates particles moving around the screen with perlin noise for a flowy appearance, like a flowfield. Please choose your preferred colours for the flowfield. There are two options - the normal variant (all colours), or the custom variant, where you can choose two colours of your choice from the colour wheel to use in the flowfield. Please do experiment with this so as to find the best wallpaper suited for you.`,
+      `The flowfield wallpaper simulates particles moving around the screen with perlin noise for a flowy appearance, like a flowfield. First, please choose your preffered flowfield type. There are two options - the normal variant or the trail variant. Then, choose your preferred colours for the flowfield. There are two options - the normal variant (all colours), or the custom variant, where you can choose two colours of your choice from the colour wheel to use in the flowfield. Please do experiment with this so as to find the best wallpaper suited for you.`,
       15,
       100,
       width - 25
@@ -285,8 +300,33 @@ function draw() {
       );
     }
     if (
+      flowfieldTypeChosen == "normal" &&
+      showColourWheel == false &&
+      flowfieldTypeNormalBtn.style.display == "none"
+    ) {
+      text(
+        "You have chosen the normal type for the flowfield.",
+        width / 2,
+        centerY1 - 60
+      );
+    } else if (
+      flowfieldTypeChosen == "trail" &&
+      showColourWheel == false &&
+      flowfieldTypeNormalBtn.style.display == "none"
+    ) {
+      text(
+        "You have chosen the trail type for the flowfield.",
+        width / 2,
+        centerY1 - 100
+      );
+      textAlign(LEFT);
+      text(`Trail size: ${trailSlider.value}`, 50, centerY1 - 60);
+      textAlign(CENTER);
+    }
+    if (
       flowfieldModeChosen == "normal" &&
-      flowfieldNormalBtn.style.display == "none"
+      flowfieldNormalBtn.style.display == "none" &&
+      flowfieldTypeNormalBtn.style.display == "none"
     ) {
       text("You have chosen normal mode.", width / 2, centerY1 - 20);
     }
@@ -415,7 +455,6 @@ function draw() {
   }
 }
 
-
 function changeFlowfieldMode() {
   // Change wallpaper mode to flowfield
   wallpaperChosen = "flowfieldMode";
@@ -425,27 +464,26 @@ function changeFlowfieldMode() {
   centerY1 = height - radius - 100;
   centerX2 = centerX1 + 2 * radius + 25;
   centerY2 = centerY1;
-  // Adjust button positions and display settings
-  flowfieldCustomBtn.style.top = centerY1 - 20 + "px";
-  flowfieldNormalBtn.style.top = centerY1 - 20 + "px";
-  backBtn.style.top = centerY1 + 40 + "px";
-  flowfieldContinueBtn.style.top = centerY1 + 40 + "px";
+  // Display appropriate buttons
+  flowfieldTypeNormalBtn.style.display = "inline-block";
+  flowfieldTypeTrailBtn.style.display = "inline-block";
+  backBtn.style.display = "inline-block";
+  flowfieldContinueBtn.style.display = "inline-block";
   // Set color mode and hide unnecessary buttons
   colorMode(HSB, 360, 100, 100);
   sunBtn.style.display = "none";
   flowfieldModeBtn.style.display = "none";
   ballBtn.style.display = "none";
-  // Display appropriate buttons
-  flowfieldCustomBtn.style.display = "inline-block";
-  flowfieldNormalBtn.style.display = "inline-block";
-  backBtn.style.display = "inline-block";
-  flowfieldContinueBtn.style.display = "inline-block";
-  // Set positions for back and continue buttons
+  // Set positions for buttons
+  flowfieldTypeNormalBtn.style.top = centerY1 - 80 + "px";
+  flowfieldTypeNormalBtn.style.right = width / 2 + "px";
+  flowfieldTypeTrailBtn.style.top = centerY1 - 80 + "px";
+  flowfieldTypeTrailBtn.style.left = width / 2 + "px";
   backBtn.style.top = centerY1 + 40 + "px";
   backBtn.style.left = 50 + "px";
-  backBtn.style.right = width / 2 - 25 + "px";
-  flowfieldContinueBtn.style.right = 50 + "px";
-  flowfieldContinueBtn.style.left = width / 2 + 25 + "px";
+  backBtn.style.right = width / 2 + "px";
+  flowfieldContinueBtn.style.top = centerY1 + 40 + "px";
+  flowfieldContinueBtn.style.left = width / 2 + "px";
 }
 
 function changeBallMode() {
@@ -491,6 +529,40 @@ function changeSun() {
   backBtn.style.right = width / 2 - 25 + "px";
 }
 
+function flowfieldTypeNormal() {
+  //Set flowfield type to normal
+  flowfieldTypeChosen = "normal";
+  // Adjust button positions and display settings
+  flowfieldCustomBtn.style.top = centerY1 - 20 + "px";
+  flowfieldCustomBtn.style.right = width / 2 + "px";
+  flowfieldNormalBtn.style.top = centerY1 - 20 + "px";
+  flowfieldNormalBtn.style.left = width / 2 + "px";
+  // Hide unnecessary buttons and display appropriate ones
+  flowfieldTypeNormalBtn.style.display = "none";
+  flowfieldTypeTrailBtn.style.display = "none";
+  flowfieldCustomBtn.style.display = "inline-block";
+  flowfieldNormalBtn.style.display = "inline-block";
+}
+
+function flowfieldTypeTrail() {
+  //Set flowfield type to trail
+  flowfieldTypeChosen = "trail";
+  // Adjust button positions and display settings
+  trailSlider.style.top = centerY1 - 80 + "px";
+  flowfieldCustomBtn.style.top = centerY1 - 20 + "px";
+  flowfieldCustomBtn.style.right = width / 2 + "px";
+  flowfieldNormalBtn.style.top = centerY1 - 20 + "px";
+  flowfieldNormalBtn.style.left = width / 2 + "px";
+  // Hide unnecessary buttons and display appropriate ones
+  trailSlider.style.display = "inline-block";
+  flowfieldTypeNormalBtn.style.display = "none";
+  flowfieldTypeTrailBtn.style.display = "none";
+  flowfieldCustomBtn.style.display = "inline-block";
+  flowfieldNormalBtn.style.display = "inline-block";
+  backBtn.style.display = "inline-block";
+  flowfieldContinueBtn.style.display = "inline-block";
+}
+
 function flowfieldCustom() {
   // Show color wheel for custom flowfield mode
   flowfieldCustomBtn.style.display = "none";
@@ -500,6 +572,7 @@ function flowfieldCustom() {
   backBtn.style.right = null;
   flowfieldContinueBtn.style.right = 50 + "px";
   flowfieldContinueBtn.style.left = null;
+  trailSlider.style.display = "none";
   showColourWheel = true;
   flowfieldModeChosen = "custom";
 }
@@ -508,14 +581,17 @@ function flowfieldNormal() {
   // Set flowfield mode to normal
   flowfieldCustomBtn.style.display = "none";
   flowfieldNormalBtn.style.display = "none";
-  backBtn.style.right = width / 2 - 25 + "px";
-  flowfieldContinueBtn.style.left = width / 2 + 25 + "px";
+  backBtn.style.right = width / 2 + "px";
+  flowfieldContinueBtn.style.left = width / 2 + "px";
   flowfieldModeChosen = "normal";
 }
 
 function flowfieldContinue() {
   // Set wallpaper mode to flowfield and hide buttons
   wallpaperChosen = "flowfield";
+  flowfieldTypeNormalBtn.style.display = "none";
+  flowfieldTypeTrailBtn.style.display = "none";
+  trailSlider.style.display = "none";
   flowfieldCustomBtn.style.display = "none";
   flowfieldNormalBtn.style.display = "none";
   backBtn.style.display = "none";
@@ -585,8 +661,11 @@ function sunContinue() {
 function homepage() {
   // Reset to homepage, hiding other elements and showing main buttons
   wallpaperChosen = false;
-  flowfieldModeChosen = false;
+  flowfieldModeChosen = "normal";
   showColourWheel = false;
+  flowfieldTypeNormalBtn.style.display = "none";
+  flowfieldTypeTrailBtn.style.display = "none";
+  trailSlider.style.display = "none";
   flowfieldCustomBtn.style.display = "none";
   flowfieldNormalBtn.style.display = "none";
   flowfieldContinueBtn.style.display = "none";
