@@ -31,45 +31,7 @@ class Ball {
       // Display ball with fixed or changing color based on chosen mode
       this.move(); // Move the ball
       // Set color based on chosen color
-      if (this.colour == "cyan") {
-        r = 0;
-        g = 255;
-        b = 255;
-      } else if (this.colour == "lime") {
-        r = 0;
-        g = 255;
-        b = 0;
-      } else if (this.colour == "pink") {
-        r = 255;
-        g = 192;
-        b = 203;
-      } else if (this.colour == "yellow") {
-        r = 255;
-        g = 255;
-        b = 0;
-      } else if (this.colour == "orange") {
-        r = 255;
-        g = 165;
-        b = 0;
-      } else if (this.colour == "#057DFF") {
-        r = 5;
-        g = 125;
-        b = 255;
-      } else if (this.colour == "#FE0000") {
-        r = 254;
-        g = 0;
-        b = 0;
-      } else if (this.colour == "#FEE892") {
-        r = 254;
-        g = 232;
-        b = 146;
-      } else if (this.colour == "#F6FCFF") {
-        r = 246;
-        g = 242;
-        b = 255;
-      }
-      chosenColour = color(r, g, b);
-      fill(chosenColour); // Set fill color
+      fill(this.colour); // Set fill color
       circle(this.x, this.y, this.size); // Draw the ball
     } else if (
       ballModeChosen == "ballChange" ||
