@@ -417,7 +417,7 @@ function draw() {
     textFont("Jersey 20 Charted");
     textSize(64);
     textAlign(CENTER);
-    text("Sunrise and Sunset", width / 2, 75);
+    text("Balls", width / 2, 75);
     fill("#E1E0DD");
     textFont("Roboto");
     textSize(24);
